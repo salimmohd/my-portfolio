@@ -1,4 +1,13 @@
 import { Link } from 'react-router-dom'
+import salimImage from '../assets/salim.jpeg';
+
+<div className="overflow-hidden rounded-lg bg-white shadow-[0_20px_45px_rgba(15,23,42,0.14)]">
+  <img
+    src={salimImage}
+    alt="Mohammad Salim"
+    className="h-[500px] w-full object-cover object-top"
+  />
+</div>
 
 const experience = [
   {
@@ -90,8 +99,8 @@ export default function AboutPage() {
         <div className="mx-auto grid max-w-6xl items-center gap-10 px-6 py-20 md:grid-cols-[0.9fr_1.1fr] lg:px-8">
           <div className="overflow-hidden rounded-sm bg-slate-200 shadow-[0_20px_45px_rgba(15,23,42,0.14)]">
             <img
-              src="https://via.placeholder.com/520x520/e5e7eb/0f172a?text=Profile"
-              alt="Salim"
+               src={salimImage}
+              alt="Mahammad salim"
               className="h-full w-full object-cover"
             />
           </div>
