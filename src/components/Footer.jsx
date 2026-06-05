@@ -42,7 +42,7 @@ export default function Footer() {
 
         <div className="border-t border-slate-200 pt-6">
           <div className="mx-auto flex flex-wrap items-center justify-between gap-4 text-sm text-slate-500 sm:px-6 lg:px-8">
-            <p className="text-base font-semibold text-slate-900">Salim.dev</p>
+            <p className="text-base font-semibold text-slate-900">Salim</p>
             <p className="mx-auto text-center text-slate-500">© 2026 Salim. All rights reserved.</p>
             <div className="flex items-center gap-6">
               <a href="https://www.linkedin.com/" target="_blank" rel="noreferrer" className="transition hover:text-sky-700">

@@ -17,7 +17,7 @@ export default function Navigation() {
       <div className="mx-auto flex w-full max-w-7xl items-center justify-between gap-4 px-4 sm:px-6 lg:px-8">
         <div className="flex items-center gap-3">
           <span className="text-2xl font-extrabold tracking-tight text-slate-900">
-            Salim.dev
+            Salim
           </span>
         </div>
 
