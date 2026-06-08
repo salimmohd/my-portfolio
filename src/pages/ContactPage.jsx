@@ -1,5 +1,11 @@
 import { useState } from 'react'
-import { contactDetails, socialLinks } from '../data/contact'
+import { PaperAirplaneIcon } from '@heroicons/react/24/outline'
+import ScrollReveal from '../components/ScrollReveal'
+import {
+  contactDetails,
+  contactPageContent,
+  socialLinks,
+} from '../content/portfolio'
 
 const initialFormValues = {
   name: '',
@@ -36,6 +42,29 @@ function validateForm(values) {
   return errors
 }
 
+async function sendContactMessage(values) {
+  const response = await fetch('/api/contact', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      name: values.name.trim(),
+      email: values.email.trim(),
+      subject: values.subject.trim(),
+      message: values.message.trim(),
+    }),
+  })
+
+  const result = await response.json()
+
+  if (!response.ok || result.error) {
+    throw new Error(result.error || 'Message could not be sent.')
+  }
+
+  return result
+}
+
 function FieldError({ id, message }) {
   if (!message) {
     return null
@@ -51,8 +80,11 @@ function FieldError({ id, message }) {
 export default function ContactPage() {
   const [formValues, setFormValues] = useState(initialFormValues)
   const [errors, setErrors] = useState({})
+  const [submitStatus, setSubmitStatus] = useState('idle')
   const [submitMessage, setSubmitMessage] = useState('')
-  const [isSubmitting, setIsSubmitting] = useState(false)
+
+  const isSubmitting = submitStatus === 'loading'
+  const { cards, form, hero } = contactPageContent
 
   function handleChange(event) {
     const { name, value } = event.target
@@ -75,86 +107,66 @@ export default function ContactPage() {
     setErrors(validationErrors)
 
     if (Object.keys(validationErrors).length > 0) {
-      setSubmitMessage('Please fix the highlighted fields before sending.')
+      setSubmitStatus('error')
+      setSubmitMessage(form.messages.invalid)
       return
     }
 
-    setIsSubmitting(true)
-    setSubmitMessage('Sending your message...')
+    setSubmitStatus('loading')
+    setSubmitMessage(form.messages.loading)
 
     try {
-      const response = await fetch(
-        `https://formsubmit.co/ajax/${contactDetails.email}`,
-        {
-          method: 'POST',
-          headers: {
-            Accept: 'application/json',
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            name: formValues.name.trim(),
-            email: formValues.email.trim(),
-            subject: formValues.subject.trim(),
-            message: formValues.message.trim(),
-            _replyto: formValues.email.trim(),
-            _subject: `Portfolio contact: ${formValues.subject.trim()}`,
-            _template: 'table',
-          }),
-        },
-      )
-
-      const result = await response.json()
-
-      if (!response.ok || result.success === false) {
-        throw new Error('Message request failed.')
-      }
-
+      await sendContactMessage(formValues)
       setFormValues(initialFormValues)
       setErrors({})
-      setSubmitMessage('Message sent successfully.')
-    } catch {
+      setSubmitStatus('success')
+      setSubmitMessage(form.messages.success)
+      window.setTimeout(() => {
+        setSubmitStatus('idle')
+        setSubmitMessage('')
+      }, 5000)
+    } catch (error) {
+      setSubmitStatus('error')
       setSubmitMessage(
-        `Sorry, the message could not be sent. Please email me directly at ${contactDetails.email}.`,
+        error instanceof Error
+          ? error.message
+          : form.messages.fallbackError,
       )
-    } finally {
-      setIsSubmitting(false)
     }
   }
 
   function getFieldClass(fieldName) {
     const errorClass = errors[fieldName]
-      ? 'border-red-500 focus:border-red-500'
-      : 'border-slate-300 focus:border-sky-600'
+      ? 'border-red-500 focus:border-red-500 focus:ring-red-500'
+      : 'border-slate-300 focus:border-sky-600 focus:ring-sky-600'
 
-    return `mt-2 w-full rounded-sm border px-4 py-3 text-sm outline-none transition ${errorClass}`
+    return `mt-2 w-full rounded-sm border px-4 py-3 text-sm outline-none transition focus:ring-1 ${errorClass}`
   }
 
   return (
     <main className="min-h-screen bg-white text-slate-950">
-      <section className="border-b border-slate-200 bg-slate-50">
+      <ScrollReveal as="section" className="border-b border-slate-200 bg-slate-50">
         <div className="mx-auto max-w-6xl px-6 py-20 lg:px-8">
           <p className="text-xs font-semibold uppercase tracking-[0.25em] text-sky-600">
-            Contact
+            {hero.eyebrow}
           </p>
 
           <h1 className="mt-4 max-w-3xl text-4xl font-bold leading-tight sm:text-5xl lg:text-6xl">
-            Let&apos;s Build Something
-            <span className="text-sky-600"> Great Together</span>
+            {hero.titlePrefix}{' '}
+            <span className="text-sky-600">{hero.highlightedTitle}</span>
           </h1>
 
           <p className="mt-6 max-w-2xl text-sm leading-7 text-slate-700">
-            Have a project in mind or want to discuss frontend development,
-            UI/UX design, React, Tailwind, or performance optimization? Send me
-            a message and I&apos;ll get back to you.
+            {hero.description}
           </p>
         </div>
-      </section>
+      </ScrollReveal>
 
       <section className="mx-auto grid max-w-6xl gap-10 px-6 py-20 lg:grid-cols-[0.85fr_1.15fr] lg:px-8">
-        <div className="space-y-6">
+        <ScrollReveal direction="left" className="space-y-6">
           <div className="rounded-sm border border-slate-200 bg-slate-50 p-6">
             <p className="text-xs font-semibold uppercase tracking-[0.2em] text-sky-600">
-              Email
+              {cards.emailLabel}
             </p>
             <a
               href={`mailto:${contactDetails.email}`}
@@ -166,7 +178,7 @@ export default function ContactPage() {
 
           <div className="rounded-sm border border-slate-200 bg-slate-50 p-6">
             <p className="text-xs font-semibold uppercase tracking-[0.2em] text-sky-600">
-              Mobile
+              {cards.mobileLabel}
             </p>
             <a
               href={contactDetails.phoneHref}
@@ -178,14 +190,16 @@ export default function ContactPage() {
 
           <div className="rounded-sm border border-slate-200 bg-slate-50 p-6">
             <p className="text-xs font-semibold uppercase tracking-[0.2em] text-sky-600">
-              Location
+              {cards.locationLabel}
             </p>
-            <p className="mt-3 text-lg font-bold text-slate-950">India</p>
+            <p className="mt-3 text-lg font-bold text-slate-950">
+              {contactDetails.location}
+            </p>
           </div>
 
           <div className="rounded-sm border border-slate-200 bg-slate-50 p-6">
             <p className="text-xs font-semibold uppercase tracking-[0.2em] text-sky-600">
-              Social
+              {cards.socialLabel}
             </p>
             <div className="mt-4 flex gap-3">
               {socialLinks.map((link) => {
@@ -208,9 +222,11 @@ export default function ContactPage() {
               })}
             </div>
           </div>
-        </div>
+        </ScrollReveal>
 
-        <form
+        <ScrollReveal
+          as="form"
+          direction="right"
           noValidate
           onSubmit={handleSubmit}
           className="rounded-sm border border-slate-200 bg-white p-6 shadow-[0_20px_45px_rgba(15,23,42,0.08)] sm:p-8"
@@ -221,7 +237,7 @@ export default function ContactPage() {
                 htmlFor="name"
                 className="text-sm font-semibold text-slate-800"
               >
-                Name
+                {form.fields.name.label}
               </label>
               <input
                 id="name"
@@ -229,7 +245,7 @@ export default function ContactPage() {
                 type="text"
                 value={formValues.name}
                 onChange={handleChange}
-                placeholder="Your name"
+                placeholder={form.fields.name.placeholder}
                 aria-invalid={Boolean(errors.name)}
                 aria-describedby={errors.name ? 'name-error' : undefined}
                 className={getFieldClass('name')}
@@ -242,7 +258,7 @@ export default function ContactPage() {
                 htmlFor="email"
                 className="text-sm font-semibold text-slate-800"
               >
-                Email
+                {form.fields.email.label}
               </label>
               <input
                 id="email"
@@ -250,7 +266,7 @@ export default function ContactPage() {
                 type="email"
                 value={formValues.email}
                 onChange={handleChange}
-                placeholder="Your email"
+                placeholder={form.fields.email.placeholder}
                 aria-invalid={Boolean(errors.email)}
                 aria-describedby={errors.email ? 'email-error' : undefined}
                 className={getFieldClass('email')}
@@ -264,7 +280,7 @@ export default function ContactPage() {
               htmlFor="subject"
               className="text-sm font-semibold text-slate-800"
             >
-              Subject
+              {form.fields.subject.label}
             </label>
             <input
               id="subject"
@@ -272,7 +288,7 @@ export default function ContactPage() {
               type="text"
               value={formValues.subject}
               onChange={handleChange}
-              placeholder="Project inquiry"
+              placeholder={form.fields.subject.placeholder}
               aria-invalid={Boolean(errors.subject)}
               aria-describedby={errors.subject ? 'subject-error' : undefined}
               className={getFieldClass('subject')}
@@ -285,7 +301,7 @@ export default function ContactPage() {
               htmlFor="message"
               className="text-sm font-semibold text-slate-800"
             >
-              Message
+              {form.fields.message.label}
             </label>
             <textarea
               id="message"
@@ -293,7 +309,7 @@ export default function ContactPage() {
               rows="6"
               value={formValues.message}
               onChange={handleChange}
-              placeholder="Tell me about your project..."
+              placeholder={form.fields.message.placeholder}
               aria-invalid={Boolean(errors.message)}
               aria-describedby={errors.message ? 'message-error' : undefined}
               className={`${getFieldClass('message')} resize-none`}
@@ -302,7 +318,20 @@ export default function ContactPage() {
           </div>
 
           {submitMessage && (
-            <p className="mt-6 text-sm font-medium text-slate-700">
+            <p
+              className={`mt-6 text-sm font-medium ${
+                submitStatus === 'success'
+                  ? 'text-emerald-600'
+                  : submitStatus === 'loading'
+                    ? 'text-slate-600'
+                    : 'text-red-600'
+              }`}
+            >
+              {submitStatus === 'success'
+                ? 'Sent: '
+                : submitStatus === 'error'
+                  ? 'Error: '
+                  : ''}
               {submitMessage}
             </p>
           )}
@@ -310,11 +339,12 @@ export default function ContactPage() {
           <button
             type="submit"
             disabled={isSubmitting}
-            className="mt-8 inline-flex rounded-sm bg-slate-950 px-6 py-3 text-sm font-semibold text-white transition hover:bg-sky-600 disabled:cursor-not-allowed disabled:bg-slate-400"
+            className="mt-8 inline-flex items-center justify-center gap-2 rounded-sm bg-slate-950 px-6 py-3 text-sm font-semibold text-white transition hover:bg-sky-600 disabled:cursor-not-allowed disabled:bg-slate-400"
           >
-            {isSubmitting ? 'Sending...' : 'Send Message'}
+            <PaperAirplaneIcon className="h-4 w-4" aria-hidden="true" />
+            {isSubmitting ? form.submittingLabel : form.submitLabel}
           </button>
-        </form>
+        </ScrollReveal>
       </section>
     </main>
   )

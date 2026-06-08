@@ -1,14 +1,7 @@
 import { useState } from 'react'
 import { NavLink } from 'react-router-dom'
 import { ArrowDownTrayIcon } from '@heroicons/react/24/outline'
-import { contactDetails } from '../data/contact'
-
-const navItems = [
-  { label: 'Home', path: '/' },
-  { label: 'About', path: '/about' },
-  { label: 'Projects', path: '/projects' },
-  { label: 'Contact', path: '/contact' },
-]
+import { contactDetails, navItems, siteContent } from '../content/portfolio'
 
 export default function Navigation() {
   const [isOpen, setIsOpen] = useState(false)
@@ -18,18 +11,18 @@ export default function Navigation() {
       <div className="mx-auto flex w-full max-w-7xl items-center justify-between gap-4 px-4 sm:px-6 lg:px-8">
         <div className="flex items-center gap-3">
           <span className="text-2xl font-extrabold tracking-tight text-slate-900">
-            Salim
+            {siteContent.name}
           </span>
         </div>
 
         <div className="flex items-center gap-2 md:hidden">
           <a
-            href="/MahammadSalim.docx"
-            download="MahammadSalim.docx"
+            href={siteContent.resume.href}
+            download={siteContent.resume.downloadName}
             className="inline-flex items-center justify-center gap-2 rounded-full bg-sky-800 px-4 py-2.5 text-sm font-semibold text-white shadow-lg shadow-sky-500/20 transition hover:bg-sky-700"
           >
             <ArrowDownTrayIcon className="w-4 h-4" aria-hidden="true" />
-            Resume
+            {siteContent.resume.label}
           </a>
           <button
             type="button"
@@ -95,13 +88,13 @@ export default function Navigation() {
           </a>
 
           <a
-            href="/MahammadSalim.docx"
-            download="MahammadSalim.docx"
+            href={siteContent.resume.href}
+            download={siteContent.resume.downloadName}
             className="inline-flex items-center justify-center gap-2 rounded-lg bg-[#0b2540] px-4 py-2 text-sm font-semibold text-white shadow-md transition hover:opacity-95"
             style={{ boxShadow: '0 6px 18px rgba(11,37,64,0.15)' }}
           >
             <ArrowDownTrayIcon className="w-4 h-4" aria-hidden="true" />
-            Resume
+            {siteContent.resume.label}
           </a>
         </div>
       </div>

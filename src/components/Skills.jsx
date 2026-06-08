@@ -1,19 +1,5 @@
-const skills = [
-  { label: 'React', color: 'blue' },
-  { label: 'Next Js', color: 'slate' },
-  { label: 'Redux', color: 'violet' },
-  { label: 'TypeScript', color: 'blue' },
-  { label: 'JavaScript', color: 'amber' },
-  { label: 'Tailwind CSS', color: 'emerald' },
-  { label: 'HTML5', color: 'orange' },
-  { label: 'CSS3', color: 'blue' },
-  { label: 'REST APIs', color: 'emerald' },
-  { label: 'Git', color: 'rose' },
-  { label: 'Figma', color: 'fuchsia' },
-  { label: 'VS Code', color: 'blue' },
-  { label: 'Adobe', color: 'red' },
-  { label: 'Veeva', color: 'amber' },
-]
+import ScrollReveal from './ScrollReveal'
+import { skillsContent } from '../content/portfolio'
 
 function pillClasses(color) {
   const styles = {
@@ -35,28 +21,35 @@ function pillClasses(color) {
 }
 
 export default function Skills() {
-  const activeSkill = 'React'
-
   return (
-    <section id="skills" className="scroll-mt-28 animate-fade-in border-t border-sky-100 bg-slate-50 py-12 shadow-[0_20px_40px_rgba(15,23,42,0.08)]">
+    <ScrollReveal as="section" id="skills" className="scroll-mt-28 border-t border-sky-100 bg-slate-50 py-12 shadow-[0_20px_40px_rgba(15,23,42,0.08)]">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="mb-10">
           <p className="text-sm font-semibold uppercase tracking-[0.22em] text-sky-800">
-            Skills & Tools
+            {skillsContent.eyebrow}
           </p>
           <h2 className="mt-4 text-3xl font-semibold text-slate-950 sm:text-4xl">
-            Technologies I work with on a daily basis
+            {skillsContent.title}
           </h2>
         </div>
         <div className="flex flex-wrap gap-4">
-          {skills.map((skill) => (
-            <span key={skill.label} className={pillClasses(skill.color, skill.label === activeSkill)}>
+          {skillsContent.items.map((skill, index) => (
+            <ScrollReveal
+              as="span"
+              key={skill.label}
+              delay={index * 45}
+              direction="scale"
+              className={pillClasses(
+                skill.color,
+                skill.label === skillsContent.activeSkill,
+              )}
+            >
               {skill.label}
-            </span>
+            </ScrollReveal>
           ))}
         </div>
       </div>
-    </section>
+    </ScrollReveal>
   )
 }
 

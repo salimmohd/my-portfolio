@@ -4,62 +4,53 @@ import {
   DevicePhoneMobileIcon,
   UsersIcon,
 } from '@heroicons/react/24/outline'
+import { servicesContent } from '../content/portfolio'
+import ScrollReveal from './ScrollReveal'
 
-const services = [
-  {
-    title: 'Frontend Development',
-    description:
-      'Build fast, interactive UI with React, component architecture, and modern frontend tooling.',
-    icon: CodeBracketIcon,
-  },
-  {
-    title: 'UI Implementation',
-    description:
-      'Translate design systems into polished, reusable interface components with attention to detail.',
-    icon: Squares2X2Icon,
-  },
-  {
-    title: 'Mobile-First Design',
-    description:
-      'Create responsive applications that look great on desktop and mobile devices.',
-    icon: DevicePhoneMobileIcon,
-  },
-  {
-    title: 'Collaboration',
-    description:
-      'Work with Git, GitHub, and team workflows to keep projects organized and maintainable.',
-    icon: UsersIcon,
-  },
-]
+const serviceIcons = {
+  code: CodeBracketIcon,
+  squares: Squares2X2Icon,
+  mobile: DevicePhoneMobileIcon,
+  users: UsersIcon,
+}
 
 export default function Services() {
   return (
-    <section id="services" className="scroll-mt-28 animate-fade-in border-t border-sky-100 bg-slate-50 py-12 shadow-[0_20px_40px_rgba(15,23,42,0.08)]">
+    <ScrollReveal as="section" id="services" className="scroll-mt-28 border-t border-sky-100 bg-slate-50 py-12 shadow-[0_20px_40px_rgba(15,23,42,0.08)]">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="mb-10">
-        <p className="text-sm font-semibold uppercase tracking-[0.22em] text-sky-800">
-          What I Offer
-        </p>
-        <h2 className="mt-4 text-3xl font-semibold text-slate-950 sm:text-4xl">
-          Services I provide to bring your ideas to life
-        </h2>
-      </div>
+          <p className="text-sm font-semibold uppercase tracking-[0.22em] text-sky-800">
+            {servicesContent.eyebrow}
+          </p>
+          <h2 className="mt-4 text-3xl font-semibold text-slate-950 sm:text-4xl">
+            {servicesContent.title}
+          </h2>
+        </div>
         <div className="grid gap-6 sm:grid-cols-2 xl:grid-cols-4">
-        {services.map((service) => (
-          <article key={service.title} className="group min-h-[184px] border border-slate-200 bg-white p-6 shadow-[0_12px_30px_rgba(15,23,42,0.08)] transition duration-300 hover:-translate-y-1 hover:border-sky-500 hover:bg-sky-50/40 hover:shadow-[0_18px_40px_rgba(14,116,144,0.16)]">
-            <h3 className="flex items-start gap-3 text-xl font-semibold text-sky-800 transition duration-300 group-hover:text-sky-700">
-              <span className="inline-flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-sm bg-sky-50 text-sky-600 transition duration-300 group-hover:scale-110 group-hover:bg-slate-950 group-hover:text-white">
-                <service.icon className="w-5 h-5" aria-hidden="true" />
-              </span>
-              <span className="leading-snug">{service.title}</span>
-            </h3>
-            <p className="mt-3 text-sm leading-7 text-slate-700">{service.description}</p>
-          </article>
-        ))}
+          {servicesContent.items.map((service, index) => {
+            const ServiceIcon = serviceIcons[service.icon] || CodeBracketIcon
+
+            return (
+              <ScrollReveal
+                as="article"
+                key={service.title}
+                delay={index * 90}
+                className="group min-h-[184px] border border-slate-200 bg-white p-6 shadow-[0_12px_30px_rgba(15,23,42,0.08)] transition duration-300 hover:-translate-y-1 hover:border-sky-500 hover:bg-sky-50/40 hover:shadow-[0_18px_40px_rgba(14,116,144,0.16)]"
+              >
+                <h3 className="flex items-start gap-3 text-xl font-semibold text-sky-800 transition duration-300 group-hover:text-sky-700">
+                  <span className="inline-flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-sm bg-sky-50 text-sky-600 transition duration-300 group-hover:scale-110 group-hover:bg-slate-950 group-hover:text-white">
+                    <ServiceIcon className="h-5 w-5" aria-hidden="true" />
+                  </span>
+                  <span className="leading-snug">{service.title}</span>
+                </h3>
+                <p className="mt-3 text-sm leading-7 text-slate-700">
+                  {service.description}
+                </p>
+              </ScrollReveal>
+            )
+          })}
+        </div>
       </div>
-      </div>
-    </section>
+    </ScrollReveal>
   )
 }
-
-
