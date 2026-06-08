@@ -1,23 +1,38 @@
-import { EnvelopeIcon } from '@heroicons/react/24/outline'
+import { EnvelopeIcon, PhoneIcon } from '@heroicons/react/24/outline'
+import { contactDetails } from '../data/contact'
 
 export default function Footer() {
   return (
-    <footer id="contact" className="bg-slate-50 shadow-[0_20px_40px_rgba(15,23,42,0.08)]">
-      <div className="mx-auto w-full max-w-7xl space-y-10 py-10 px-4 sm:px-6 lg:px-8">
+    <footer
+      id="contact"
+      className="bg-slate-50 shadow-[0_20px_40px_rgba(15,23,42,0.08)]"
+    >
+      <div className="mx-auto w-full max-w-7xl space-y-10 px-4 py-10 sm:px-6 lg:px-8">
         <div className="space-y-8 text-center">
-          <p className="text-3xl font-semibold text-slate-900 sm:text-4xl">Ready to build something together?</p>
-          <a
-            href="mailto:salim@example.com"
-            className="inline-flex min-w-[260px] items-center justify-center gap-3 rounded-lg bg-sky-800 px-10 py-4 text-base font-semibold text-white shadow-[0_24px_60px_rgba(14,65,128,0.18)] transition hover:bg-sky-700"
-          >
-            <EnvelopeIcon className="h-5 w-5" aria-hidden="true" />
-            Email Me
-          </a>
+          <p className="text-3xl font-semibold text-slate-900 sm:text-4xl">
+            Ready to build something together?
+          </p>
+          <div className="flex flex-wrap justify-center gap-3">
+            <a
+              href={`mailto:${contactDetails.email}`}
+              className="inline-flex min-w-[220px] items-center justify-center gap-3 rounded-lg bg-sky-800 px-8 py-4 text-base font-semibold text-white shadow-[0_24px_60px_rgba(14,65,128,0.18)] transition hover:bg-sky-700"
+            >
+              <EnvelopeIcon className="h-5 w-5" aria-hidden="true" />
+              Email Me
+            </a>
+            <a
+              href={contactDetails.phoneHref}
+              className="inline-flex min-w-[220px] items-center justify-center gap-3 rounded-lg border border-sky-800 bg-white px-8 py-4 text-base font-semibold text-sky-800 shadow-[0_24px_60px_rgba(14,65,128,0.08)] transition hover:bg-sky-50"
+            >
+              <PhoneIcon className="h-5 w-5" aria-hidden="true" />
+              {contactDetails.phone}
+            </a>
+          </div>
         </div>
 
         <div className="mx-auto flex flex-wrap items-center justify-center gap-6 text-sm text-slate-600">
           <a
-            href="https://github.com/"
+            href={contactDetails.github}
             target="_blank"
             rel="noreferrer"
             className="inline-flex items-center gap-2 rounded-lg border border-slate-200 bg-white px-4 py-1 transition hover:border-sky-700 hover:text-sky-700"
@@ -28,7 +43,7 @@ export default function Footer() {
             GitHub
           </a>
           <a
-            href="https://www.linkedin.com/"
+            href={contactDetails.linkedin}
             target="_blank"
             rel="noreferrer"
             className="inline-flex items-center gap-2 rounded-lg border border-slate-200 bg-white px-4 py-1 transition hover:border-sky-700 hover:text-sky-700"
@@ -43,15 +58,36 @@ export default function Footer() {
         <div className="border-t border-slate-200 pt-6">
           <div className="mx-auto flex flex-wrap items-center justify-between gap-4 text-sm text-slate-500 sm:px-6 lg:px-8">
             <p className="text-base font-semibold text-slate-900">Salim</p>
-            <p className="mx-auto text-center text-slate-500">© 2026 Salim. All rights reserved.</p>
-            <div className="flex items-center gap-6">
-              <a href="https://www.linkedin.com/" target="_blank" rel="noreferrer" className="transition hover:text-sky-700">
+            <p className="mx-auto text-center text-slate-500">
+              &copy; 2026 Salim. All rights reserved.
+            </p>
+            <div className="flex flex-wrap items-center gap-6">
+              <a
+                href={contactDetails.linkedin}
+                target="_blank"
+                rel="noreferrer"
+                className="transition hover:text-sky-700"
+              >
                 LinkedIn
               </a>
-              <a href="https://github.com/" target="_blank" rel="noreferrer" className="transition hover:text-sky-700">
+              <a
+                href={contactDetails.github}
+                target="_blank"
+                rel="noreferrer"
+                className="transition hover:text-sky-700"
+              >
                 GitHub
               </a>
-              <a href="mailto:salim@example.com" className="transition hover:text-sky-700">
+              <a
+                href={contactDetails.phoneHref}
+                className="transition hover:text-sky-700"
+              >
+                Mobile
+              </a>
+              <a
+                href={`mailto:${contactDetails.email}`}
+                className="transition hover:text-sky-700"
+              >
                 Email
               </a>
             </div>
@@ -61,5 +97,3 @@ export default function Footer() {
     </footer>
   )
 }
-
-

@@ -46,9 +46,9 @@ export default function Services() {
       </div>
         <div className="grid gap-6 sm:grid-cols-2 xl:grid-cols-4">
         {services.map((service) => (
-          <article key={service.title} className="border border-slate-200 bg-white p-6 transition hover:border-sky-200 shadow-[0_12px_30px_rgba(15,23,42,0.08)]">
-            <h3 className="text-xl font-semibold text-sky-800 flex items-start gap-3">
-              <span className="inline-flex items-center justify-center w-9 h-9 rounded-lg text-sky-600 flex-shrink-0">
+          <article key={service.title} className="group min-h-[184px] border border-slate-200 bg-white p-6 shadow-[0_12px_30px_rgba(15,23,42,0.08)] transition duration-300 hover:-translate-y-1 hover:border-sky-500 hover:bg-sky-50/40 hover:shadow-[0_18px_40px_rgba(14,116,144,0.16)]">
+            <h3 className="flex items-start gap-3 text-xl font-semibold text-sky-800 transition duration-300 group-hover:text-sky-700">
+              <span className="inline-flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-sm bg-sky-50 text-sky-600 transition duration-300 group-hover:scale-110 group-hover:bg-slate-950 group-hover:text-white">
                 <service.icon className="w-5 h-5" aria-hidden="true" />
               </span>
               <span className="leading-snug">{service.title}</span>

@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { NavLink } from 'react-router-dom'
 import { ArrowDownTrayIcon } from '@heroicons/react/24/outline'
+import { contactDetails } from '../data/contact'
 
 const navItems = [
   { label: 'Home', path: '/' },
@@ -70,7 +71,7 @@ export default function Navigation() {
 
         <div className="hidden items-center gap-3 md:flex">
           <a
-            href="https://github.com/"
+            href={contactDetails.github}
             target="_blank"
             rel="noreferrer"
             aria-label="GitHub"
@@ -82,7 +83,7 @@ export default function Navigation() {
           </a>
 
           <a
-            href="https://www.linkedin.com/"
+            href={contactDetails.linkedin}
             target="_blank"
             rel="noreferrer"
             aria-label="LinkedIn"
@@ -128,7 +129,7 @@ export default function Navigation() {
           </nav>
           <div className="mt-6 flex items-center gap-3 border-t border-slate-200 pt-5">
             <a
-              href="https://github.com/"
+              href={contactDetails.github}
               target="_blank"
               rel="noreferrer"
               aria-label="GitHub"
@@ -139,7 +140,7 @@ export default function Navigation() {
               </svg>
             </a>
             <a
-              href="https://www.linkedin.com/"
+              href={contactDetails.linkedin}
               target="_blank"
               rel="noreferrer"
               aria-label="LinkedIn"

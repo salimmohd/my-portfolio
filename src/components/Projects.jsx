@@ -35,12 +35,12 @@ export default function Projects() {
       </div>
       <div className="grid gap-6 lg:grid-cols-3">
         {projects.map((project) => (
-          <article key={project.title} className="border border-slate-200 bg-white p-6 transition hover:border-sky-200 shadow-[0_12px_30px_rgba(15,23,42,0.08)]">
-            <h3 className="text-xl font-semibold text-slate-950">{project.title}</h3>
+          <article key={project.title} className="group min-h-[220px] border border-slate-200 bg-white p-6 shadow-[0_12px_30px_rgba(15,23,42,0.08)] transition duration-300 hover:-translate-y-1 hover:border-sky-500 hover:bg-sky-50/40 hover:shadow-[0_18px_40px_rgba(14,116,144,0.16)]">
+            <h3 className="text-xl font-semibold text-slate-950 transition duration-300 group-hover:text-sky-700">{project.title}</h3>
             <p className="mt-3 text-sm leading-7 text-slate-700">{project.description}</p>
             <div className="mt-6 flex flex-wrap gap-2">
               {project.tags.map((tag) => (
-                <span key={tag} className="rounded-full bg-sky-100 px-3 py-1 text-xs font-semibold text-sky-800">
+                <span key={tag} className="rounded-full bg-sky-100 px-3 py-1 text-xs font-semibold text-sky-800 transition duration-300 group-hover:bg-sky-600 group-hover:text-white">
                   {tag}
                 </span>
               ))}
