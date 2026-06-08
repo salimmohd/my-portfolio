@@ -1,7 +1,9 @@
 import { useState } from 'react'
 import { NavLink } from 'react-router-dom'
 import { ArrowDownTrayIcon } from '@heroicons/react/24/outline'
-import { contactDetails, navItems, siteContent } from '../content/portfolio'
+import { contactDetails } from '../content/contact'
+import { navItems } from '../content/navigation'
+import { siteContent } from '../content/site'
 
 export default function Navigation() {
   const [isOpen, setIsOpen] = useState(false)

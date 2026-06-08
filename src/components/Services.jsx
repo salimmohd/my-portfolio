@@ -4,7 +4,7 @@ import {
   DevicePhoneMobileIcon,
   UsersIcon,
 } from '@heroicons/react/24/outline'
-import { servicesContent } from '../content/portfolio'
+import { servicesContent } from '../content/services'
 import ScrollReveal from './ScrollReveal'
 
 const serviceIcons = {

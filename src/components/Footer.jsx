@@ -1,6 +1,8 @@
 import { EnvelopeIcon, PhoneIcon } from '@heroicons/react/24/outline'
 import ScrollReveal from './ScrollReveal'
-import { contactDetails, footerContent, siteContent } from '../content/portfolio'
+import { contactDetails } from '../content/contact'
+import { footerContent } from '../content/footer'
+import { siteContent } from '../content/site'
 
 export default function Footer() {
   return (

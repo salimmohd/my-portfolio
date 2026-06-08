@@ -1,4 +1,4 @@
-import { projectsContent } from '../content/portfolio'
+import { projectsContent } from '../content/projects'
 import ScrollReveal from './ScrollReveal'
 
 export default function Projects() {

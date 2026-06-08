@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import { homeHeroContent } from '../content/portfolio'
+import { homeHeroContent } from '../content/home'
 import ScrollReveal from './ScrollReveal'
 
 export default function Hero() {

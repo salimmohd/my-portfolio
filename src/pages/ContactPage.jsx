@@ -1,11 +1,8 @@
 import { useState } from 'react'
 import { PaperAirplaneIcon } from '@heroicons/react/24/outline'
 import ScrollReveal from '../components/ScrollReveal'
-import {
-  contactDetails,
-  contactPageContent,
-  socialLinks,
-} from '../content/portfolio'
+import { contactDetails, socialLinks } from '../content/contact'
+import { contactPageContent } from '../content/contactPage'
 
 const initialFormValues = {
   name: '',

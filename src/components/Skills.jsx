@@ -1,5 +1,5 @@
 import ScrollReveal from './ScrollReveal'
-import { skillsContent } from '../content/portfolio'
+import { skillsContent } from '../content/skills'
 
 function pillClasses(color) {
   const styles = {

@@ -1,0 +1,21 @@
+export const skillsContent = {
+  eyebrow: 'Skills & Tools',
+  title: 'Technologies I work with on a daily basis',
+  activeSkill: 'React',
+  items: [
+    { label: 'React', color: 'blue' },
+    { label: 'Next Js', color: 'slate' },
+    { label: 'Redux', color: 'violet' },
+    { label: 'TypeScript', color: 'blue' },
+    { label: 'JavaScript', color: 'amber' },
+    { label: 'Tailwind CSS', color: 'emerald' },
+    { label: 'HTML5', color: 'orange' },
+    { label: 'CSS3', color: 'blue' },
+    { label: 'REST APIs', color: 'emerald' },
+    { label: 'Git', color: 'rose' },
+    { label: 'Figma', color: 'fuchsia' },
+    { label: 'VS Code', color: 'blue' },
+    { label: 'Adobe', color: 'red' },
+    { label: 'Veeva', color: 'amber' },
+  ],
+}

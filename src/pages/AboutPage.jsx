@@ -1,6 +1,7 @@
 import salimImage from '../assets/salim.jpeg'
 import ScrollReveal from '../components/ScrollReveal'
-import { aboutPageContent, socialLinks } from '../content/portfolio'
+import { aboutPageContent } from '../content/about'
+import { socialLinks } from '../content/contact'
 
 const sectionContainer = 'mx-auto max-w-5xl px-6 py-20 lg:px-8'
 

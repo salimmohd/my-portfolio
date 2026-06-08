@@ -1,5 +1,5 @@
 import nodemailer from 'nodemailer'
-import { contactDetails } from '../src/content/portfolio.js'
+import { contactDetails } from '../src/content/contact.js'
 
 const DEFAULT_TO_EMAIL = contactDetails.email
 
